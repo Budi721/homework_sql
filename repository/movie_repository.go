@@ -9,5 +9,5 @@ type MovieRepository interface {
 	Save(db *gorm.DB, movie domain.Movie) domain.Movie
 	Update(db *gorm.DB, movie domain.Movie) domain.Movie
 	Delete(db *gorm.DB, movie domain.Movie)
-	FindById(db *gorm.DB, id int) domain.Movie
+	FindBySlug(db *gorm.DB, slug string) domain.Movie
 }

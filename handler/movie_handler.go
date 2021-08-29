@@ -9,5 +9,5 @@ type MovieHandler interface {
 	Create(writer http.ResponseWriter, request *http.Request)
 	Update(writer http.ResponseWriter, request *http.Request, params chi.RouteParams)
 	Delete(writer http.ResponseWriter, request *http.Request, params chi.RouteParams)
-	FindById(writer http.ResponseWriter, request *http.Request, params chi.RouteParams)
+	FindBySlug(writer http.ResponseWriter, request *http.Request)
 }

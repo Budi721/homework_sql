@@ -30,6 +30,9 @@ func (m MovieRepositoryImpl) Delete(db *gorm.DB, movie domain.Movie) {
 	panic("implement me")
 }
 
-func (m MovieRepositoryImpl) FindById(db *gorm.DB, id int) domain.Movie {
-	panic("implement me")
+func (m MovieRepositoryImpl) FindBySlug(db *gorm.DB, slug string) domain.Movie {
+	movie := domain.Movie{}
+	db.First(&movie, "slug = ?", slug)
+
+	return movie
 }

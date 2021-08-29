@@ -6,5 +6,5 @@ type MovieService interface {
 	Create(request web.MovieRequest) web.MovieResponse
 	Update()
 	Delete()
-	FindById()
+	FindBySlug(movieSlug string) web.MovieResponse
 }

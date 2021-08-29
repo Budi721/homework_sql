@@ -46,6 +46,7 @@ func (m MovieServiceImpl) Delete() {
 	panic("implement me")
 }
 
-func (m MovieServiceImpl) FindById() {
-	panic("implement me")
+func (m MovieServiceImpl) FindBySlug(movieSlug string) web.MovieResponse {
+	movie := m.MovieRepository.FindBySlug(m.DB, movieSlug)
+	return helper.ToMovieResponse(movie)
 }

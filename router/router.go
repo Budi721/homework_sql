@@ -10,6 +10,6 @@ func NewRouter(movieHandler handler.MovieHandler) chi.Router {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Post("/movies", movieHandler.Create)
-
+	r.Get("/movies/{slug}", movieHandler.FindBySlug)
 	return r
 }

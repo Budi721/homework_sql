@@ -24,11 +24,11 @@ func (m MovieHandlerImpl) Create(writer http.ResponseWriter, request *http.Reque
 	movieResponse := m.MovieService.Create(movieCreateRequest)
 
 	webResponse := web.WebResponse{
-		Code:   200,
+		Code:   http.StatusCreated,
 		Error:  nil,
 		Result: movieResponse,
 	}
-	helper.WriteToResponseBody(writer, webResponse)
+	helper.WriteToResponseBody(writer, http.StatusCreated, webResponse)
 }
 
 func (m MovieHandlerImpl) Update(writer http.ResponseWriter, request *http.Request, params chi.RouteParams) {
@@ -39,6 +39,15 @@ func (m MovieHandlerImpl) Delete(writer http.ResponseWriter, request *http.Reque
 	panic("implement me")
 }
 
-func (m MovieHandlerImpl) FindById(writer http.ResponseWriter, request *http.Request, params chi.RouteParams) {
-	panic("implement me")
+func (m MovieHandlerImpl) FindBySlug(writer http.ResponseWriter, request *http.Request) {
+	paramSlug := chi.URLParam(request, "slug")
+
+	movieResponse := m.MovieService.FindBySlug(paramSlug)
+
+	webResponse := web.WebResponse{
+		Code:   http.StatusOK,
+		Error:  nil,
+		Result: movieResponse,
+	}
+	helper.WriteToResponseBody(writer, http.StatusOK, webResponse)
 }
