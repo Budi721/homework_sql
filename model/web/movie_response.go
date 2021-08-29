@@ -1,6 +1,6 @@
 package web
 
 type MovieResponse struct {
-	Id int
+	Id int `json:"id"`
 	MovieRequest
 }

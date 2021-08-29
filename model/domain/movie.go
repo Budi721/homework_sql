@@ -1,7 +1,7 @@
 package domain
 
 type Movie struct {
-	Id          uint
+	Id          int
 	Title       string `gorm:"type: VARCHAR(255) NOT NULL"`
 	Slug        string `gorm:"type: VARCHAR(255) NOT NULL;unique"`
 	Description string `gorm:"type:TEXT NOT NULL"`
