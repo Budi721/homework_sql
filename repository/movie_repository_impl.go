@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type MovieRepositoryImpl struct {}
+type MovieRepositoryImpl struct{}
 
 func NewMovieRepository() MovieRepository {
 	return &MovieRepositoryImpl{}
@@ -22,12 +22,22 @@ func (m MovieRepositoryImpl) Save(db *gorm.DB, movie domain.Movie) domain.Movie 
 	return movie
 }
 
-func (m MovieRepositoryImpl) Update(db *gorm.DB, movie domain.Movie) domain.Movie {
-	panic("implement me")
+func (m MovieRepositoryImpl) Update(db *gorm.DB, movie domain.Movie, slug string) domain.Movie {
+	movieUpdated := domain.Movie{}
+	db.First(&movieUpdated, "slug = ?", slug)
+	movieUpdated.Title = movie.Title
+	movieUpdated.Image = movie.Image
+	movieUpdated.Slug = movie.Slug
+	movieUpdated.Duration = movie.Duration
+	movieUpdated.Description = movie.Description
+	db.Save(&movieUpdated)
+
+	return movieUpdated
 }
 
-func (m MovieRepositoryImpl) Delete(db *gorm.DB, movie domain.Movie) {
-	panic("implement me")
+func (m MovieRepositoryImpl) Delete(db *gorm.DB, slug string) {
+	movie := domain.Movie{}
+	db.Where("slug = ?", slug).Delete(&movie)
 }
 
 func (m MovieRepositoryImpl) FindBySlug(db *gorm.DB, slug string) domain.Movie {

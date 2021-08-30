@@ -31,12 +31,30 @@ func (m MovieHandlerImpl) Create(writer http.ResponseWriter, request *http.Reque
 	helper.WriteToResponseBody(writer, http.StatusCreated, webResponse)
 }
 
-func (m MovieHandlerImpl) Update(writer http.ResponseWriter, request *http.Request, params chi.RouteParams) {
-	panic("implement me")
+func (m MovieHandlerImpl) Update(writer http.ResponseWriter, request *http.Request) {
+	paramSlug := chi.URLParam(request, "slug")
+	movieUpdateRequest := web.MovieRequest{}
+	helper.ReadFromRequestBody(request, &movieUpdateRequest)
+	movieResponse := m.MovieService.Update(movieUpdateRequest, paramSlug)
+
+	webResponse := web.WebResponse{
+		Code:   http.StatusOK,
+		Error:  nil,
+		Result: movieResponse,
+	}
+	helper.WriteToResponseBody(writer, http.StatusOK, webResponse)
 }
 
-func (m MovieHandlerImpl) Delete(writer http.ResponseWriter, request *http.Request, params chi.RouteParams) {
-	panic("implement me")
+func (m MovieHandlerImpl) Delete(writer http.ResponseWriter, request *http.Request) {
+	paramSlug := chi.URLParam(request, "slug")
+
+	m.MovieService.Delete(paramSlug)
+	webResponse := web.WebResponse{
+		Code:   http.StatusOK,
+		Error:  nil,
+		Result: "Success",
+	}
+	helper.WriteToResponseBody(writer, http.StatusOK, webResponse)
 }
 
 func (m MovieHandlerImpl) FindBySlug(writer http.ResponseWriter, request *http.Request) {

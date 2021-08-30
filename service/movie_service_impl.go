@@ -38,12 +38,21 @@ func (m MovieServiceImpl) Create(request web.MovieRequest) web.MovieResponse {
 	return helper.ToMovieResponse(movieInserted)
 }
 
-func (m MovieServiceImpl) Update() {
-	panic("implement me")
+func (m MovieServiceImpl) Update(request web.MovieRequest, movieSlug string) web.MovieResponse {
+	movie := domain.Movie{
+		Title:       request.Title,
+		Slug:        request.Slug,
+		Description: request.Description,
+		Duration:    request.Duration,
+		Image:       request.Image,
+	}
+
+	movieUpdated := m.MovieRepository.Update(m.DB, movie, movieSlug)
+	return helper.ToMovieResponse(movieUpdated)
 }
 
-func (m MovieServiceImpl) Delete() {
-	panic("implement me")
+func (m MovieServiceImpl) Delete(movieSlug string) {
+	m.MovieRepository.Delete(m.DB, movieSlug)
 }
 
 func (m MovieServiceImpl) FindBySlug(movieSlug string) web.MovieResponse {

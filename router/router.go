@@ -11,5 +11,7 @@ func NewRouter(movieHandler handler.MovieHandler) chi.Router {
 	r.Use(middleware.Logger)
 	r.Post("/movies", movieHandler.Create)
 	r.Get("/movies/{slug}", movieHandler.FindBySlug)
+	r.Put("/movies/{slug}", movieHandler.Update)
+	r.Delete("/movies/{slug}", movieHandler.Delete)
 	return r
 }
